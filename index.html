@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="pt-PT" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Revolução Liberal de 1820 - Guia de Estudo Interativo</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Configuration & Custom Styles -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        paper: '#fdfbf7',
+                        primary: '#5e3a8c',
+                        primaryDark: '#4a2c70',
+                        accent: '#d4af37',
+                        darkText: '#2c241b'
+                    },
+                    fontFamily: {
+                        serif: ['Merriweather', 'serif'],
+                        sans: ['Roboto', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Utilities */
+        body {
+            background-color: #fdfbf7;
+            color: #2c241b;
+        }
+
+        /* Glassmorphism */
+        .glass-header {
+            background: rgba(94, 58, 140, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        /* 3D Flip Card Effects */
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+        
+        .preserve-3d {
+            transform-style: preserve-3d;
+        }
+        
+        .backface-hidden {
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+        
+        .rotate-y-180 {
+            transform: rotateY(180deg);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f3f4f6; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #5e3a8c; 
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4a2c70; 
+        }
+
+        /* Print Styles for Certificate */
+        @media print {
+            /* Reset body */
+            body { 
+                background: white; 
+                margin: 0;
+                padding: 0;
+            }
+            
+            /* Hide everything by default to prevent blank pages */
+            header, footer, #inicio, #guia, #flashcards, #glossario, #quiz-interface, #certificate-wrapper, #quiz-review, #help-modal, #zoom-modal {
+                display: none !important;
+            }
+
+            /* Reset container styles */
+            main { margin: 0 !important; padding: 0 !important; }
+            #quiz { padding: 0 !important; margin: 0 !important; background: transparent !important; position: static !important; }
+            #quiz .container { max-width: none !important; padding: 0 !important; margin: 0 !important; width: 100% !important; }
+            
+            /* Show only certificate */
+            #certificate-section {
+                display: block !important;
+                visibility: visible !important;
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                margin: 0;
+                box-shadow: none !important;
+                border: 4px double #5e3a8c !important;
+            }
+
+            /* Force colors */
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            
+            @page {
+                size: auto;
+                margin: 0mm;
+            }
+            
+            #no-print {
+                display: none !important;
+            }
+        }
+
+        /* Animation Classes */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="font-sans antialiased overflow-x-hidden">
+
+    <!-- Header -->
+    <header class="fixed w-full top-0 z-40 glass-header text-white shadow-lg transition-all duration-300" id="main-header">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <i class="fas fa-scroll text-accent text-2xl"></i>
+                <h1 class="font-serif font-bold text-lg md:text-xl tracking-wide">Revolução Liberal 1820</h1>
+            </div>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex items-center gap-6 font-medium">
+                <a href="#inicio" class="hover:text-accent transition-colors">Início</a>
+                <a href="#guia" class="hover:text-accent transition-colors">Guia</a>
+                <a href="#flashcards" class="hover:text-accent transition-colors">Flashcards</a>
+                <a href="#glossario" class="hover:text-accent transition-colors">Glossário</a>
+                <a href="#quiz" class="bg-accent text-primaryDark px-4 py-2 rounded-full font-bold hover:bg-yellow-400 transition transform hover:scale-105 shadow-md">
+                    <i class="fas fa-graduation-cap mr-2"></i>Quiz
+                </a>
+                <button onclick="toggleUserGuide()" class="text-white hover:text-accent transition-colors text-xl" aria-label="Ajuda">
+                    <i class="fas fa-circle-question"></i>
+                </button>
+            </nav>
+
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden text-2xl text-white focus:outline-none" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-primaryDark border-t border-purple-800">
+            <nav class="flex flex-col p-4 space-y-4 text-center">
+                <a href="#inicio" onclick="toggleMobileMenu()" class="block text-white hover:text-accent">Início</a>
+                <a href="#guia" onclick="toggleMobileMenu()" class="block text-white hover:text-accent">Guia</a>
+                <a href="#flashcards" onclick="toggleMobileMenu()" class="block text-white hover:text-accent">Flashcards</a>
+                <a href="#glossario" onclick="toggleMobileMenu()" class="block text-white hover:text-accent">Glossário</a>
+                <a href="#quiz" onclick="toggleMobileMenu()" class="inline-block bg-accent text-primaryDark px-6 py-2 rounded-full font-bold mx-auto">Quiz</a>
+                <button onclick="toggleUserGuide(); toggleMobileMenu()" class="text-accent underline">Como usar?</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="mt-16">
+
+        <!-- Hero Section -->
+        <section id="inicio" class="relative py-20 lg:py-32 bg-paper">
+            <div class="container mx-auto px-4 text-center">
+                <h2 class="font-serif text-4xl md:text-5xl lg:text-6xl text-primary mb-6 font-black animate-fade-in">
+                    Do Absolutismo à<br><span class="text-accent">Liberdade</span>
+                </h2>
+                <p class="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto mb-10 leading-relaxed">
+                    Explore a génese da Constituição de 1822, o papel do Sinédrio e a transformação política que mudou Portugal para sempre. Um guia interativo baseado em documentos históricos.
+                </p>
+                <div class="flex flex-col md:flex-row justify-center gap-4">
+                    <a href="#guia" class="bg-primary text-white px-8 py-3 rounded shadow-lg hover:bg-primaryDark transition font-semibold text-lg">
+                        Começar Estudo
+                    </a>
+                    <a href="#flashcards" class="border-2 border-primary text-primary px-8 py-3 rounded shadow-lg hover:bg-purple-50 transition font-semibold text-lg">
+                        Jogar Agora
+                    </a>
+                </div>
+            </div>
+            <!-- Decorative Background Element -->
+            <div class="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 opacity-5 pointer-events-none">
+                <i class="fas fa-feather-alt text-9xl absolute -left-10 top-20 text-primary"></i>
+                <i class="fas fa-scroll text-9xl absolute -right-10 bottom-20 text-primary"></i>
+            </div>
+        </section>
+
+        <!-- Guia de Estudo -->
+        <section id="guia" class="py-16 bg-white border-t border-gray-100">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h2 class="font-serif text-3xl font-bold text-primary mb-3">Guia de Estudo Imersivo</h2>
+                    <div class="h-1 w-20 bg-accent mx-auto rounded"></div>
+                </div>
+
+                <!-- A) Multimedia Grid -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+                    <!-- Infografia -->
+                    <div class="bg-gray-900 rounded-lg overflow-hidden shadow-xl group cursor-zoom-in relative aspect-video" onclick="openZoom('./infografia.jpg')">
+                        <img src="./icon-info.jpg" alt="Infografia da Revolução" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition duration-500">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <span class="bg-black/50 text-white px-4 py-2 rounded backdrop-blur-sm border border-white/20">
+                                <i class="fas fa-search-plus mr-2"></i>Ver Infografia
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <!-- Vídeo -->
+                    <div class="bg-black rounded-lg overflow-hidden shadow-xl aspect-video relative flex items-center justify-center">
+                        <!-- Correction 1: Fixed video source path -->
+                        <video controls class="w-full h-full object-cover">
+                            <source src="./video.mp4" type="video/mp4">
+                            Seu navegador não suporta a tag de vídeo.
+                        </video>
+                        <!-- Fallback visual if video fails or is placeholder -->
+                        <div class="absolute inset-0 -z-10 bg-gray-800 flex items-center justify-center text-gray-500">
+                            <i class="fas fa-film text-4xl"></i>
+                        </div>
+                    </div>
+
+                    <!-- Áudio/Podcast -->
+                    <div class="bg-primaryDark rounded-lg p-6 shadow-xl text-white flex flex-col justify-center aspect-video lg:aspect-auto">
+                        <div class="flex items-center gap-4 mb-4">
+                            <div class="w-12 h-12 bg-accent rounded-full flex items-center justify-center text-primaryDark">
+                                <i class="fas fa-headphones text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-serif font-bold">Podcast Educativo</h3>
+                                <p class="text-sm opacity-80">A Revolução Liberal de 1820</p>
+                            </div>
+                        </div>
+                        <audio controls class="w-full mt-2 custom-audio">
+                            <source src="./podcast.mp3" type="audio/mpeg">
+                            Seu navegador não suporta áudio.
+                        </audio>
+                    </div>
+                </div>
+
+                <!-- B) Accordion (2 Columns) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16" id="accordion-container">
+                    <!-- JS will populate this -->
+                </div>
+
+                <!-- C) Slideshow -->
+                <div class="bg-black rounded-xl shadow-2xl overflow-hidden max-w-4xl mx-auto relative group">
+                    <div class="aspect-[16/9] relative bg-gray-900" id="slideshow-container">
+                        <img id="slide-img" src="./image1.jpg" alt="Slide Histórico" class="w-full h-full object-contain cursor-zoom-in transition-opacity duration-300" onclick="openZoom(this.src)">
+                        
+                        <!-- Controls: Correction 2 - Improved visibility and touch targets -->
+                        <button onclick="changeSlide(-1)" class="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/90 text-white p-4 rounded-full backdrop-blur transition z-10 focus:outline-none shadow-lg transform active:scale-95" aria-label="Slide anterior">
+                            <i class="fas fa-chevron-left text-xl"></i>
+                        </button>
+                        <button onclick="changeSlide(1)" class="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/90 text-white p-4 rounded-full backdrop-blur transition z-10 focus:outline-none shadow-lg transform active:scale-95" aria-label="Próximo slide">
+                            <i class="fas fa-chevron-right text-xl"></i>
+                        </button>
+                        
+                        <div class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/70 px-4 py-1 rounded-full text-white text-sm backdrop-blur border border-white/10 z-10">
+                            <span id="slide-counter">1 / 15</span>
+                        </div>
+                    </div>
+                    <div class="p-4 bg-gray-800 text-gray-300 text-sm text-center">
+                        <p><i class="fas fa-info-circle text-accent mr-2"></i>Clique na imagem para ampliar os detalhes históricos.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Flashcards & Treino -->
+        <section id="flashcards" class="py-16 bg-paper">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-8">
+                    <h2 class="font-serif text-3xl font-bold text-primary mb-3">Flashcards & Memória</h2>
+                    <p class="text-gray-600">Teste o seu conhecimento antes do quiz final.</p>
+                </div>
+
+                <!-- Tabs -->
+                <div class="flex justify-center mb-8">
+                    <div class="bg-gray-200 p-1 rounded-lg inline-flex">
+                        <button onclick="switchTab('study')" id="tab-study" class="px-6 py-2 rounded-md text-sm font-bold bg-white text-primary shadow transition">Estudo</button>
+                        <button onclick="switchTab('memory')" id="tab-memory" class="px-6 py-2 rounded-md text-sm font-bold text-gray-600 hover:text-primary transition">Jogo de Memória</button>
+                    </div>
+                </div>
+
+                <!-- Tab Content: Flashcards -->
+                <div id="content-study" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto perspective-1000">
+                    <!-- JS Populates this -->
+                </div>
+
+                <!-- Tab Content: Memory Game -->
+                <div id="content-memory" class="hidden">
+                    <div class="text-center mb-6">
+                        <button onclick="initMatchingGame()" class="bg-primary hover:bg-primaryDark text-white px-4 py-2 rounded shadow transition">
+                            <i class="fas fa-sync-alt mr-2"></i>Reiniciar Jogo
+                        </button>
+                        <span id="memory-message" class="ml-4 text-green-600 font-bold hidden">Parabéns! Completaste o jogo.</span>
+                    </div>
+                    <div id="memory-grid" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 max-w-6xl mx-auto">
+                        <!-- JS Populates this -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Glossário -->
+        <section id="glossario" class="py-16 bg-white border-t border-gray-100">
+            <div class="container mx-auto px-4">
+                <div class="flex flex-col lg:flex-row gap-12">
+                    
+                    <!-- Left: Glossary List -->
+                    <div class="lg:w-2/3">
+                        <h2 class="font-serif text-3xl font-bold text-primary mb-6 flex items-center">
+                            <i class="fas fa-book-open mr-3"></i>Glossário
+                        </h2>
+                        
+                        <!-- Search -->
+                        <div class="relative mb-6">
+                            <input type="text" id="glossary-search" placeholder="Pesquisar termo ou definição..." 
+                                class="w-full p-4 pl-12 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition text-gray-700">
+                            <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                        </div>
+
+                        <!-- List -->
+                        <div id="glossary-list" class="space-y-4">
+                            <!-- JS Populates -->
+                        </div>
+                        <p id="no-terms-msg" class="hidden text-center text-gray-500 py-8">Nenhum termo encontrado.</p>
+                    </div>
+
+                    <!-- Right: Quick Challenge Sidebar -->
+                    <div class="lg:w-1/3">
+                        <div class="sticky top-24">
+                            <div class="bg-primary/5 border border-primary/10 rounded-xl p-6 relative overflow-hidden">
+                                <div class="absolute top-0 right-0 p-4 opacity-10">
+                                    <i class="fas fa-bolt text-6xl text-primary"></i>
+                                </div>
+                                <h3 class="font-serif font-bold text-xl text-primaryDark mb-4">Desafio Rápido</h3>
+                                <div id="mini-game-container">
+                                    <p class="text-sm text-gray-600 mb-2 font-bold uppercase tracking-wider">Adivinhe o termo:</p>
+                                    <p id="mini-game-def" class="text-gray-800 italic mb-6 text-lg min-h-[4rem]">Loading...</p>
+                                    <div id="mini-game-options" class="flex flex-col gap-2">
+                                        <!-- Options -->
+                                    </div>
+                                    <p id="mini-game-feedback" class="mt-3 font-bold text-center h-6"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quiz & Certification -->
+        <section id="quiz" class="py-16 bg-paper relative">
+            <div class="container mx-auto px-4 max-w-4xl">
+                <div class="text-center mb-10">
+                    <h2 class="font-serif text-3xl md:text-4xl font-bold text-primary mb-3">Quiz de Avaliação</h2>
+                    <p class="text-gray-600">Teste final para obtenção de certificado.</p>
+                </div>
+
+                <!-- Quiz Interface -->
+                <div id="quiz-interface" class="bg-white rounded-xl shadow-2xl p-6 md:p-10 border-t-8 border-accent">
+                    
+                    <!-- Score Header -->
+                    <div class="flex justify-between items-center mb-6 pb-4 border-b border-gray-100">
+                        <span class="text-gray-500 font-medium">Questão <span id="current-q-num">1</span> de <span id="total-q-num">20</span></span>
+                        <div class="text-xl font-bold text-primary">Pontuação: <span id="live-score">0</span></div>
+                    </div>
+
+                    <!-- Question Area -->
+                    <div class="mb-8">
+                        <h3 id="question-text" class="text-xl md:text-2xl font-serif text-gray-800 font-medium mb-6">Loading...</h3>
+                        <div id="options-container" class="space-y-3">
+                            <!-- JS Populates -->
+                        </div>
+                    </div>
+
+                    <!-- Controls -->
+                    <div class="flex flex-col gap-4">
+                        <div id="feedback-area" class="hidden p-4 rounded bg-gray-50 border-l-4">
+                            <p id="feedback-text" class="font-medium"></p>
+                            <p id="feedback-explanation" class="text-sm text-gray-600 mt-1"></p>
+                        </div>
+                        <button id="next-btn" onclick="nextQuestion()" class="self-end bg-primary text-white px-8 py-3 rounded hover:bg-primaryDark transition disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                            Próxima Pergunta <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Certificate Area (Hidden initially) -->
+                <div id="certificate-wrapper" class="hidden mt-10 text-center fade-in">
+                    <h3 class="text-2xl font-bold text-primary mb-4">Quiz Concluído!</h3>
+                    <p class="text-gray-600 mb-6">Pontuação Final: <span id="final-score" class="font-bold text-accent text-xl">0%</span></p>
+                    
+                    <div class="max-w-md mx-auto bg-white p-6 rounded shadow mb-6">
+                        <label class="block text-left text-sm font-bold text-gray-700 mb-2">Insira seu nome completo:</label>
+                        <input type="text" id="student-name" class="w-full border p-2 rounded mb-4" placeholder="Ex: Ana Silva">
+                        <button onclick="generateCertificate()" class="w-full bg-accent text-primaryDark font-bold py-3 rounded hover:bg-yellow-400 transition mb-3">
+                            <i class="fas fa-print mr-2"></i>Emitir Certificado
+                        </button>
+                        <!-- Correction 3: Button to review answers -->
+                        <button onclick="reviewQuiz()" class="text-primary hover:text-primaryDark underline text-sm font-medium">
+                            Rever Respostas e Explicações
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Quiz Review Area (Hidden initially) -->
+                <div id="quiz-review" class="hidden mt-10 bg-white p-6 rounded shadow-lg max-h-[80vh] overflow-y-auto border-t-4 border-primary">
+                    <h3 class="text-2xl font-bold text-primary mb-6 text-center font-serif">Revisão do Quiz</h3>
+                    <div id="review-container" class="space-y-6 text-left">
+                        <!-- populated by JS -->
+                    </div>
+                    <div class="mt-8 text-center pt-6 border-t">
+                        <button onclick="closeReview()" class="bg-gray-200 text-primaryDark px-8 py-3 rounded hover:bg-gray-300 transition font-bold">
+                            <i class="fas fa-arrow-left mr-2"></i>Voltar ao Certificado
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Printable Certificate -->
+                <div id="certificate-section" class="hidden max-w-[800px] mx-auto p-12 text-center border-8 border-double border-primary bg-white text-darkText relative">
+                    <div class="absolute top-4 left-4 text-4xl text-accent opacity-20"><i class="fas fa-certificate"></i></div>
+                    <div class="absolute bottom-4 right-4 text-4xl text-accent opacity-20"><i class="fas fa-certificate"></i></div>
+                    
+                    <h1 class="font-serif text-5xl font-black text-primary mb-2 uppercase tracking-widest">Certificado</h1>
+                    <p class="text-xl text-gray-500 font-serif italic mb-12">de Conclusão</p>
+                    
+                    <p class="text-lg mb-4">Certifica-se que</p>
+                    <h2 id="cert-name" class="font-serif text-3xl font-bold text-primaryDark border-b-2 border-gray-300 inline-block px-8 pb-2 mb-8 min-w-[300px]">Nome do Aluno</h2>
+                    
+                    <p class="text-lg leading-relaxed max-w-2xl mx-auto mb-10">
+                        Completou com êxito o módulo educativo interativo sobre<br>
+                        <strong class="text-primary">A Revolução Liberal de 1820</strong><br>
+                        demonstrando conhecimento sobre a Revolução Liberal de 1820.
+                    </p>
+                    
+                    <div class="flex justify-between items-end mt-16 px-10">
+                        <div class="text-center">
+                            <p id="cert-date" class="font-bold border-t border-gray-400 pt-2 px-4"></p>
+                            <p class="text-xs text-gray-500 uppercase mt-1">Data</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="w-24 h-24 border-4 border-accent rounded-full flex items-center justify-center mx-auto mb-2 text-primary font-black text-xl">
+                                <span id="cert-score">100%</span>
+                            </div>
+                            <p class="text-xs text-gray-500 uppercase">Pontuação Final</p>
+                        </div>
+                        <div class="text-center">
+                             <p class="font-bold border-t border-gray-400 pt-2 px-4 font-serif text-primary">Teodósio Faria</p>
+                             <p class="text-xs text-gray-500 uppercase mt-1">Autor & Coordenador</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-primaryDark text-white py-8 border-t border-purple-900" id="no-print">
+        <div class="container mx-auto px-4 text-center">
+            <p class="font-serif font-light opacity-80">Teodósio Faria ©2026 Guia Educativo da Revolução Liberal 1820</p>
+            <div class="mt-4 flex justify-center gap-4 text-sm opacity-50">
+                <span><i class="fas fa-book mr-1"></i>Guia 1 & 2</span>
+                <span><i class="fas fa-university mr-1"></i>História de Portugal</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+
+    <!-- User Guide Modal -->
+    <div id="help-modal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-xl max-w-2xl w-full p-6 md:p-8 relative shadow-2xl animate-fade-in max-h-[90vh] overflow-y-auto">
+            <button onclick="toggleUserGuide()" class="absolute top-4 right-4 text-gray-400 hover:text-red-500 text-2xl">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <h2 class="text-2xl font-serif font-bold text-primary mb-6 border-b pb-2">Guia do Utilizador</h2>
+            
+            <div class="space-y-6 text-gray-700">
+                <div class="flex gap-4">
+                    <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 text-primary">
+                        <i class="fas fa-book-reader"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-lg">Guia de Estudo</h4>
+                        <p class="text-sm">Explore os tópicos no acordeão, visualize a infografia e navegue pelos slides históricos.</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-4">
+                    <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 text-primary">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-lg">Flashcards & Jogos</h4>
+                        <p class="text-sm">Use a aba "Estudo" para virar os cartões e memorizar. Mude para "Jogo de Memória" para testar a sua rapidez de associação.</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-4">
+                    <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 text-primary">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-lg">Certificação</h4>
+                        <p class="text-sm">Responda às 20 questões do Quiz. No final, insira o seu nome para gerar e imprimir o seu certificado oficial.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-8 text-center">
+                <button onclick="toggleUserGuide()" class="bg-primary text-white px-8 py-3 rounded hover:bg-primaryDark transition font-bold">
+                    Entendido, vamos começar!
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Image Zoom Modal -->
+    <div id="zoom-modal" class="fixed inset-0 z-50 hidden bg-black/95 flex items-center justify-center p-4" onclick="closeZoom(event)">
+        <button class="absolute top-6 right-6 text-white hover:text-accent text-4xl focus:outline-none" onclick="document.getElementById('zoom-modal').classList.add('hidden')">
+            <i class="fas fa-times"></i>
+        </button>
+        <img id="zoomed-image" src="" alt="Zoom" class="max-w-full max-h-[90vh] object-contain shadow-2xl border-2 border-white/20 rounded">
+    </div>
+
+    <!-- Logic -->
+    <script>
+        // --- DATA SETS ---
+
+        const studyData = [
+            {
+                title: "1. Crise do Antigo Regime",
+                content: "Antes de 1820, Portugal vivia uma profunda crise. A permanência da família real no Brasil (desde 1807), a abertura dos portos brasileiros (fim do exclusivo colonial) e o domínio inglês sob o General Beresford criaram um sentimento de abandono e humilhação. Portugal era visto como uma 'colónia de uma colónia'."
+            },
+            {
+                title: "2. O Sinédrio",
+                content: "Fundado no Porto em 1818 por Manuel Fernandes Tomás e outros juristas/maçons. Era uma associação secreta que conspirou para preparar a revolução, inspirando-se na Constituição de Cádis de 1812."
+            },
+            {
+                title: "3. A Revolução de 1820",
+                content: "Iniciou-se com o pronunciamento militar no Porto a 24 de agosto de 1820. Lisboa aderiu a 15 de setembro. Os objetivos eram: expulsão dos ingleses, regresso do Rei e, principalmente, a convocação de Cortes para criar uma Constituição."
+            },
+            {
+                title: "4. Soberania Nacional (Constituição de 1822)",
+                content: "Rutura total com o Absolutismo. Art. 26º: 'A soberania reside essencialmente em a Nação'. O Rei deixa de ser soberano por direito divino e passa a ser apenas o chefe do poder executivo delegado pela Nação."
+            },
+            {
+                title: "5. Separação de Poderes",
+                content: "Legislativo (Cortes - unicameral, com supremacia); Executivo (Rei e Ministros, com veto suspensivo); Judicial (Juízes independentes e inamovíveis). Fim da concentração de poderes no monarca."
+            },
+            {
+                title: "6. Direitos e Deveres",
+                content: "A Constituição consagrou a Tríade Liberal: Liberdade, Segurança e Propriedade. Aboliu a tortura, a Inquisição e os privilégios de classe (sociedade de indivíduos, não de ordens). Mantinha, contudo, o Catolicismo como religião oficial."
+            },
+            {
+                title: "7. A Questão Brasileira",
+                content: "As Cortes Vintistas, ao tentarem recolonizar o Brasil e exigir o regresso de D. Pedro, precipitaram a Independência do Brasil (1822). Este foi um dos grandes fracassos políticos do Vintismo."
+            },
+            {
+                title: "8. A Vilafrancada e o Fim",
+                content: "Em maio de 1823, o infante D. Miguel liderou o golpe da Vilafrancada, restaurando o absolutismo. A Constituição de 1822 teve vigência de apenas 9 meses, sendo anulada por D. João VI."
+            },
+            {
+                title: "9. Legado",
+                content: "Apesar da curta vigência, a Constituição de 1822 fundou o constitucionalismo português, introduzindo conceitos irreversíveis como cidadania, eleições e separação de poderes."
+            }
+        ];
+
+        const flashcardsData = [
+            { term: "Constituição de 1822", def: "Primeira constituição portuguesa, aprovada a 23 de setembro de 1822." },
+            { term: "Manuel Fernandes Tomás", def: "Fundador do Sinédrio e principal redator da Constituição de 1822." },
+            { term: "Constituição de Cádis", def: "Modelo espanhol (1812) que inspirou os liberais portugueses." },
+            { term: "Soberania Nacional", def: "Princípio de que o poder reside na Nação e não no Rei." },
+            { term: "Veto Suspensivo", def: "Poder limitado do Rei recusar leis temporariamente, não definitivamente." },
+            { term: "Vilafrancada", def: "Golpe de 1823 liderado por D. Miguel que acabou com o Vintismo." },
+            { term: "Sinédrio", def: "Associação secreta fundada em 1818 no Porto para preparar a revolução." },
+            { term: "Tríade Liberal", def: "Liberdade, Segurança e Propriedade." },
+            { term: "Bases da Constituição", def: "Documento provisório de 1821 com os princípios fundamentais." },
+            { term: "Cortes", def: "Parlamento unicameral eleito por sufrágio direto." },
+            { term: "Sufrágio de 1822", def: "Direto, secreto e universal (masculino, com exceções)." },
+            { term: "Carlota Joaquina", def: "Rainha absolutista que se recusou a jurar a Constituição." }
+        ];
+
+        const glossaryData = [
+            { term: "Absolutismo", def: "Regime onde o Rei detém todo o poder, estando acima da lei." },
+            { term: "Vintismo", def: "Primeiro período liberal português (1820-1823), radical e democrático." },
+            { term: "Carta Constitucional", def: "Constituição outorgada pelo Rei (1826), oposta à Constituição de 1822." },
+            { term: "Sinédrio", def: "Organização secreta de juristas do Porto que planeou a revolução." },
+            { term: "Cortes Constituintes", def: "Assembleia eleita com o objetivo específico de criar a Constituição." },
+            { term: "Bases da Constituição", def: "Texto provisório aprovado em 1821." },
+            { term: "Veto Suspensivo", def: "Capacidade do Rei adiar a promulgação de uma lei, mas não a impedir." },
+            { term: "Bicameralismo", def: "Sistema com duas câmaras (não usado em 1822, que era Unicameral)." },
+            { term: "Secularização", def: "Processo de separação entre a política/direito e a religião." },
+            { term: "Rei-Pai", def: "Metáfora do absolutismo para legitimar o poder real tradicional." },
+            { term: "Martinhada", def: "Golpe falhado em novembro de 1820 da fação conservadora." },
+            { term: "Abrilada", def: "Tentativa de golpe absolutista de D. Miguel em 1824." },
+            { term: "Mandato Representativo", def: "O deputado representa a Nação inteira, não apenas quem o elegeu." },
+            { term: "Paternalismo Político", def: "Poder exercido como tutela, típico do Antigo Regime." },
+            { term: "Legibus Solutus", def: "Expressão latina: o Rei está 'solto das leis'." }
+        ];
+
+        const quizData = [
+            { q: "Qual foi o principal objetivo imediato da Revolução de 1820?", options: ["Matar o Rei", "Convocar Cortes para criar uma Constituição", "Declarar guerra a Espanha", "Unir-se ao Brasil"], correct: 1 },
+            { q: "Quem foi o principal ideólogo do Vintismo e fundador do Sinédrio?", options: ["D. Miguel", "General Beresford", "Manuel Fernandes Tomás", "Duque de Palmela"], correct: 2 },
+            { q: "A Constituição de 1822 inspirou-se principalmente na Constituição de...", options: ["França (1791)", "EUA (1787)", "Cádis (1812)", "Inglaterra"], correct: 2 },
+            { q: "Onde residia a soberania segundo a Constituição de 1822?", options: ["No Rei", "Na Nação", "No Povo (diretamente)", "Em Deus"], correct: 1 },
+            { q: "O poder Legislativo pertencia a...", options: ["Ao Rei", "Aos Juízes", "Às Cortes (unicamerais)", "Ao Conselho de Estado"], correct: 2 },
+            { q: "Que tipo de veto tinha o Rei?", options: ["Absoluto", "Suspensivo", "Nenhum", "De Bolso"], correct: 1 },
+            { q: "A Constituição de 1822 vigorou durante...", options: ["9 meses", "3 anos", "10 anos", "1 mês"], correct: 0 },
+            { q: "Quem se recusou a jurar a Constituição e perdeu a cidadania?", options: ["D. João VI", "D. Pedro", "D. Carlota Joaquina", "Manuel Fernandes Tomás"], correct: 2 },
+            { q: "A Vilafrancada (1823) marcou o regresso do...", options: ["Liberalismo", "Absolutismo", "Comunismo", "Regime Republicano"], correct: 1 },
+            { q: "O que significa 'Vintismo'?", options: ["Uma marca de vinho", "O liberalismo radical de 1820-1823", "O período de 20 anos de paz", "A fação moderada da Carta"], correct: 1 },
+            // True/False represented as options
+            { q: "A Inquisição foi abolida pelas Cortes Vintistas.", options: ["Verdadeiro", "Falso"], correct: 0 },
+            { q: "O Sinédrio foi fundado em Lisboa.", options: ["Verdadeiro", "Falso"], correct: 1, explanation: "Foi fundado no Porto." },
+            { q: "A Constituição de 1822 criou uma monarquia dual com o Brasil.", options: ["Verdadeiro", "Falso"], correct: 1, explanation: "Tentou manter o Reino Unido, mas centralizado em Lisboa." },
+            { q: "O sufrágio era universal para todos os habitantes.", options: ["Verdadeiro", "Falso"], correct: 1, explanation: "Excluía mulheres, analfabetos, criados, etc." },
+            { q: "A 'Tríade Liberal' é Liberdade, Segurança e Propriedade.", options: ["Verdadeiro", "Falso"], correct: 0 },
+            { q: "O Rei D. João VI jurou a Constituição de livre vontade absoluta.", options: ["Verdadeiro", "Falso"], correct: 1, explanation: "Fê-lo pressionado pelos acontecimentos." },
+            { q: "A religião Católica deixou de ser a oficial do Estado.", options: ["Verdadeiro", "Falso"], correct: 1, explanation: "Continuou a ser a única religião da Nação." },
+            { q: "O Poder Judicial era independente do Rei.", options: ["Verdadeiro", "Falso"], correct: 0 },
+            { q: "Os deputados tinham mandato imperativo (obedeciam aos eleitores).", options: ["Verdadeiro", "Falso"], correct: 1, explanation: "Tinham mandato representativo da Nação." },
+            { q: "A revolução começou a 24 de agosto de 1820.", options: ["Verdadeiro", "Falso"], correct: 0 }
+        ];
+
+        // --- GLOBAL STATE ---
+        let currentSlide = 1;
+        let quizScore = 0;
+        let currentQuestionIndex = 0;
+        let selectedMatchItem = null;
+        let memoryLocked = false;
+        let matchedPairs = 0;
+        let userAnswers = []; // Correction 3: Store answers
+
+        // --- INITIALIZATION ---
+        document.addEventListener('DOMContentLoaded', () => {
+            renderAccordion();
+            renderFlashcards();
+            initMatchingGame(); // Prepare game but it's hidden
+            renderGlossary();
+            renderMiniGame();
+            renderQuizStart();
+            
+            // Image placeholders for slideshow
+            const slideImg = document.getElementById('slide-img');
+            slideImg.onerror = function() {
+                this.src = `https://picsum.photos/seed/${currentSlide}/800/450`;
+            };
+        });
+
+        // --- NAVIGATION ---
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        function toggleUserGuide() {
+            const modal = document.getElementById('help-modal');
+            modal.classList.toggle('hidden');
+        }
+
+        // --- SECTION: GUIDE (ACCORDION) ---
+        function renderAccordion() {
+            const container = document.getElementById('accordion-container');
+            container.innerHTML = studyData.map((item, index) => `
+                <div class="bg-paper border border-gray-200 rounded-lg overflow-hidden">
+                    <button onclick="toggleAccordion(${index})" class="w-full text-left px-6 py-4 bg-white hover:bg-gray-50 flex justify-between items-center transition">
+                        <span class="font-serif font-bold text-primaryDark">${item.title}</span>
+                        <i id="acc-icon-${index}" class="fas fa-chevron-down text-accent transition-transform duration-300"></i>
+                    </button>
+                    <div id="acc-content-${index}" class="hidden px-6 py-4 text-gray-700 bg-paper border-t border-gray-100 leading-relaxed">
+                        ${item.content}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleAccordion(index) {
+            const content = document.getElementById(`acc-content-${index}`);
+            const icon = document.getElementById(`acc-icon-${index}`);
+            
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                content.classList.add('block', 'fade-in');
+                icon.classList.add('rotate-180');
+            } else {
+                content.classList.add('hidden');
+                content.classList.remove('block', 'fade-in');
+                icon.classList.remove('rotate-180');
+            }
+        }
+
+        // --- SECTION: SLIDESHOW ---
+        function changeSlide(direction) {
+            currentSlide += direction;
+            if (currentSlide > 15) currentSlide = 1;
+            if (currentSlide < 1) currentSlide = 15;
+            
+            const img = document.getElementById('slide-img');
+            const counter = document.getElementById('slide-counter');
+            
+            // Fade out
+            img.style.opacity = 0;
+            
+            setTimeout(() => {
+                // Update source - using local reference as requested, but logic handles error to placeholder
+                img.src = `./image${currentSlide}.jpg`; 
+                counter.textContent = `${currentSlide} / 15`;
+                // Fade in
+                img.style.opacity = 1;
+            }, 300);
+        }
+
+        // --- SECTION: FLASHCARDS & MEMORY ---
+        function switchTab(tab) {
+            const studyBtn = document.getElementById('tab-study');
+            const memoryBtn = document.getElementById('tab-memory');
+            const studyContent = document.getElementById('content-study');
+            const memoryContent = document.getElementById('content-memory');
+
+            if (tab === 'study') {
+                studyBtn.classList.add('bg-white', 'text-primary', 'shadow');
+                studyBtn.classList.remove('text-gray-600');
+                memoryBtn.classList.remove('bg-white', 'text-primary', 'shadow');
+                memoryBtn.classList.add('text-gray-600');
+                
+                studyContent.classList.remove('hidden');
+                memoryContent.classList.add('hidden');
+            } else {
+                memoryBtn.classList.add('bg-white', 'text-primary', 'shadow');
+                memoryBtn.classList.remove('text-gray-600');
+                studyBtn.classList.remove('bg-white', 'text-primary', 'shadow');
+                studyBtn.classList.add('text-gray-600');
+                
+                studyContent.classList.add('hidden');
+                memoryContent.classList.remove('hidden');
+            }
+        }
+
+        function renderFlashcards() {
+            const container = document.getElementById('content-study');
+            container.innerHTML = flashcardsData.map((card, index) => `
+                <div class="group h-64 w-full cursor-pointer perspective-1000" onclick="this.firstElementChild.classList.toggle('rotate-y-180')">
+                    <div class="relative w-full h-full transition-transform duration-700 preserve-3d shadow-xl rounded-xl">
+                        <!-- Front -->
+                        <div class="absolute w-full h-full backface-hidden bg-white border-2 border-primary/20 rounded-xl flex flex-col items-center justify-center p-6 text-center">
+                            <h3 class="text-xl font-serif font-bold text-primary">${card.term}</h3>
+                            <i class="fas fa-sync-alt absolute bottom-4 right-4 text-gray-300"></i>
+                        </div>
+                        <!-- Back -->
+                        <div class="absolute w-full h-full backface-hidden bg-primary rotate-y-180 rounded-xl flex items-center justify-center p-6 text-center">
+                            <p class="text-white font-medium leading-relaxed">${card.def}</p>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Memory Game Logic
+        function initMatchingGame() {
+            const container = document.getElementById('memory-grid');
+            document.getElementById('memory-message').classList.add('hidden');
+            
+            // Select 6 random pairs
+            const shuffledData = [...flashcardsData].sort(() => 0.5 - Math.random()).slice(0, 6);
+            
+            // Create 12 cards (6 terms + 6 defs)
+            let gameCards = [];
+            shuffledData.forEach((item, index) => {
+                gameCards.push({ id: index, content: item.term, type: 'term' });
+                gameCards.push({ id: index, content: item.def, type: 'def' });
+            });
+            
+            // Shuffle cards
+            gameCards.sort(() => 0.5 - Math.random());
+            
+            container.innerHTML = gameCards.map((card, index) => `
+                <div id="mem-card-${index}" 
+                     class="aspect-square bg-white border-2 border-primary/20 rounded-lg flex items-center justify-center p-2 text-center text-xs md:text-sm cursor-pointer hover:bg-purple-50 transition shadow-md select-none"
+                     onclick="handleMemoryClick(${index}, ${card.id}, '${card.type}')">
+                     <span class="font-bold text-primaryDark opacity-0 transition-opacity duration-300">${card.content}</span>
+                     <i class="fas fa-question text-3xl text-accent absolute transition-opacity duration-300"></i>
+                </div>
+            `).join('');
+
+            matchedPairs = 0;
+            memoryLocked = false;
+            selectedMatchItem = null;
+        }
+
+        function handleMemoryClick(domIndex, logicId, type) {
+            if (memoryLocked) return;
+            
+            const cardEl = document.getElementById(`mem-card-${domIndex}`);
+            // Check if already matched or same card clicked
+            if (cardEl.classList.contains('bg-green-100') || (selectedMatchItem && selectedMatchItem.domIndex === domIndex)) return;
+
+            // Reveal
+            revealCard(cardEl, true);
+
+            if (!selectedMatchItem) {
+                // First selection
+                selectedMatchItem = { domIndex, logicId, type };
+            } else {
+                // Second selection
+                memoryLocked = true;
+                const prev = selectedMatchItem;
+
+                // Check Match: Same ID but Different Type (Term vs Def)
+                if (prev.logicId === logicId && prev.type !== type) {
+                    // Match!
+                    setTimeout(() => {
+                        markMatched(prev.domIndex);
+                        markMatched(domIndex);
+                        matchedPairs++;
+                        selectedMatchItem = null;
+                        memoryLocked = false;
+                        if (matchedPairs === 6) {
+                            document.getElementById('memory-message').classList.remove('hidden');
+                        }
+                    }, 500);
+                } else {
+                    // No Match
+                    setTimeout(() => {
+                        revealCard(document.getElementById(`mem-card-${prev.domIndex}`), false);
+                        revealCard(cardEl, false); // Hide current
+                        selectedMatchItem = null;
+                        memoryLocked = false;
+                    }, 1000);
+                }
+            }
+        }
+
+        function revealCard(el, show) {
+            const span = el.querySelector('span');
+            const icon = el.querySelector('i');
+            if (show) {
+                el.classList.add('bg-purple-100', 'border-primary');
+                span.classList.remove('opacity-0');
+                icon.classList.add('opacity-0');
+            } else {
+                el.classList.remove('bg-purple-100', 'border-primary');
+                span.classList.add('opacity-0');
+                icon.classList.remove('opacity-0');
+            }
+        }
+
+        function markMatched(index) {
+            const el = document.getElementById(`mem-card-${index}`);
+            el.classList.remove('bg-purple-100', 'border-primary');
+            el.classList.add('bg-green-100', 'border-green-400', 'opacity-50', 'cursor-default');
+        }
+
+        // --- SECTION: GLOSSARY ---
+        function renderGlossary() {
+            const container = document.getElementById('glossary-list');
+            const sortedData = [...glossaryData].sort((a, b) => a.term.localeCompare(b.term));
+            
+            container.innerHTML = sortedData.map(item => `
+                <div class="bg-paper p-4 border-l-4 border-primary shadow-sm hover:shadow-md transition">
+                    <h3 class="font-serif font-bold text-lg text-primaryDark">${item.term}</h3>
+                    <p class="text-gray-600 mt-1">${item.def}</p>
+                </div>
+            `).join('');
+
+            // Search Logic
+            document.getElementById('glossary-search').addEventListener('input', (e) => {
+                const term = e.target.value.toLowerCase();
+                const items = container.children;
+                let found = false;
+
+                Array.from(items).forEach(div => {
+                    const text = div.innerText.toLowerCase();
+                    if (text.includes(term)) {
+                        div.classList.remove('hidden');
+                        found = true;
+                    } else {
+                        div.classList.add('hidden');
+                    }
+                });
+
+                const msg = document.getElementById('no-terms-msg');
+                if (!found) msg.classList.remove('hidden');
+                else msg.classList.add('hidden');
+            });
+        }
+
+        // Mini Game (Sidebar)
+        function renderMiniGame() {
+            const target = glossaryData[Math.floor(Math.random() * glossaryData.length)];
+            
+            // Get 2 random wrong answers
+            const wrongOptions = glossaryData
+                .filter(i => i.term !== target.term)
+                .sort(() => 0.5 - Math.random())
+                .slice(0, 2)
+                .map(i => i.term);
+            
+            const options = [...wrongOptions, target.term].sort(() => 0.5 - Math.random());
+
+            document.getElementById('mini-game-def').textContent = `"${target.def}"`;
+            
+            const optionsContainer = document.getElementById('mini-game-options');
+            optionsContainer.innerHTML = options.map(opt => `
+                <button onclick="checkMiniGame('${opt}', '${target.term}', this)" 
+                    class="w-full text-left px-4 py-2 bg-white border rounded hover:bg-gray-50 transition text-sm font-medium">
+                    ${opt}
+                </button>
+            `).join('');
+            
+            document.getElementById('mini-game-feedback').textContent = '';
+        }
+
+        function checkMiniGame(selected, correct, btn) {
+            const feedback = document.getElementById('mini-game-feedback');
+            
+            if (selected === correct) {
+                btn.classList.add('bg-green-100', 'border-green-500', 'text-green-800');
+                feedback.textContent = "Correto! A carregar novo...";
+                feedback.className = "mt-3 font-bold text-center h-6 text-green-600";
+                setTimeout(renderMiniGame, 1500);
+            } else {
+                btn.classList.add('bg-red-100', 'border-red-500', 'text-red-800');
+                feedback.textContent = "Errado. Tente outra vez.";
+                feedback.className = "mt-3 font-bold text-center h-6 text-red-600";
+            }
+        }
+
+        // --- SECTION: QUIZ ---
+        function renderQuizStart() {
+            currentQuestionIndex = 0;
+            quizScore = 0;
+            userAnswers = []; // Clear answers
+            document.getElementById('live-score').textContent = '0';
+            document.getElementById('next-btn').disabled = true;
+            document.getElementById('feedback-area').classList.add('hidden');
+            document.getElementById('quiz-interface').classList.remove('hidden');
+            document.getElementById('certificate-wrapper').classList.add('hidden');
+            document.getElementById('quiz-review').classList.add('hidden');
+            
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const q = quizData[currentQuestionIndex];
+            document.getElementById('current-q-num').textContent = currentQuestionIndex + 1;
+            document.getElementById('question-text').textContent = q.q;
+            document.getElementById('next-btn').disabled = true;
+            document.getElementById('next-btn').classList.add('opacity-50');
+            document.getElementById('feedback-area').classList.add('hidden');
+
+            const container = document.getElementById('options-container');
+            container.innerHTML = q.options.map((opt, idx) => `
+                <button onclick="checkAnswer(${idx})" id="opt-btn-${idx}" 
+                    class="w-full text-left p-4 border-2 border-gray-100 rounded-lg hover:border-primary/50 hover:bg-purple-50 transition flex items-center group">
+                    <span class="w-8 h-8 rounded-full bg-gray-200 text-gray-600 flex items-center justify-center font-bold mr-4 group-hover:bg-white border group-hover:border-primary">
+                        ${String.fromCharCode(65 + idx)}
+                    </span>
+                    <span class="text-lg">${opt}</span>
+                </button>
+            `).join('');
+        }
+
+        function checkAnswer(selectedIdx) {
+            // Disable all buttons
+            const q = quizData[currentQuestionIndex];
+            const buttons = document.querySelectorAll('#options-container button');
+            buttons.forEach(btn => {
+                btn.disabled = true;
+                btn.classList.remove('hover:border-primary/50', 'hover:bg-purple-50');
+                btn.classList.add('cursor-default');
+            });
+
+            const correctIdx = q.correct;
+            const feedbackArea = document.getElementById('feedback-area');
+            const feedbackText = document.getElementById('feedback-text');
+            const feedbackExp = document.getElementById('feedback-explanation');
+
+            // Store answer
+            userAnswers.push({
+                qIndex: currentQuestionIndex,
+                selected: selectedIdx,
+                correct: correctIdx
+            });
+
+            feedbackArea.classList.remove('hidden');
+
+            if (selectedIdx === correctIdx) {
+                // Correct
+                document.getElementById(`opt-btn-${selectedIdx}`).classList.add('bg-green-100', 'border-green-500');
+                quizScore += (100 / quizData.length);
+                document.getElementById('live-score').textContent = Math.round(quizScore);
+                
+                feedbackArea.classList.add('bg-green-50', 'border-green-500', 'text-green-800');
+                feedbackArea.classList.remove('bg-red-50', 'border-red-500', 'text-red-800');
+                feedbackText.textContent = "Correto!";
+            } else {
+                // Wrong
+                document.getElementById(`opt-btn-${selectedIdx}`).classList.add('bg-red-100', 'border-red-500');
+                document.getElementById(`opt-btn-${correctIdx}`).classList.add('bg-green-50', 'border-green-300'); // Show correct
+                
+                feedbackArea.classList.add('bg-red-50', 'border-red-500', 'text-red-800');
+                feedbackArea.classList.remove('bg-green-50', 'border-green-500', 'text-green-800');
+                feedbackText.textContent = "Incorreto.";
+            }
+
+            if (q.explanation) {
+                feedbackExp.textContent = q.explanation;
+            } else {
+                feedbackExp.textContent = "";
+            }
+
+            // Enable Next
+            const nextBtn = document.getElementById('next-btn');
+            nextBtn.disabled = false;
+            nextBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            
+            if (currentQuestionIndex === quizData.length - 1) {
+                nextBtn.innerHTML = 'Ver Resultados <i class="fas fa-flag-checkered ml-2"></i>';
+            }
+        }
+
+        function nextQuestion() {
+            if (currentQuestionIndex < quizData.length - 1) {
+                currentQuestionIndex++;
+                showQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            document.getElementById('quiz-interface').classList.add('hidden');
+            document.getElementById('certificate-wrapper').classList.remove('hidden');
+            document.getElementById('final-score').textContent = Math.round(quizScore) + '%';
+        }
+
+        // Correction 3: Review Logic
+        function reviewQuiz() {
+            const container = document.getElementById('review-container');
+            container.innerHTML = userAnswers.map((ans, index) => {
+                const q = quizData[ans.qIndex];
+                const isCorrect = ans.selected === ans.correct;
+                return `
+                    <div class="border-b border-gray-200 pb-4">
+                        <p class="font-bold text-gray-800 mb-2 font-serif"><span class="text-primary">Q${index+1}:</span> ${q.q}</p>
+                        <div class="text-sm pl-4 border-l-2 ${isCorrect ? 'border-green-300' : 'border-red-300'}">
+                            <p class="${isCorrect ? 'text-green-700' : 'text-red-700'} font-bold mb-1">
+                                Sua resposta: ${q.options[ans.selected]} 
+                                ${isCorrect ? '<i class="fas fa-check ml-1"></i>' : '<i class="fas fa-times ml-1"></i>'}
+                            </p>
+                            ${!isCorrect ? `<p class="text-green-700 font-medium mb-1">Resposta correta: ${q.options[ans.correct]}</p>` : ''}
+                            ${q.explanation ? `<p class="text-gray-500 italic mt-1 bg-gray-50 p-2 rounded">💡 ${q.explanation}</p>` : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            document.getElementById('certificate-wrapper').classList.add('hidden');
+            document.getElementById('quiz-review').classList.remove('hidden');
+        }
+
+        function closeReview() {
+            document.getElementById('quiz-review').classList.add('hidden');
+            document.getElementById('certificate-wrapper').classList.remove('hidden');
+        }
+
+        function generateCertificate() {
+            const name = document.getElementById('student-name').value;
+            if (!name.trim()) {
+                alert("Por favor, introduza o seu nome.");
+                return;
+            }
+            
+            document.getElementById('cert-name').textContent = name;
+            document.getElementById('cert-score').textContent = Math.round(quizScore) + '%';
+            
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('pt-PT', { day: 'numeric', month: 'long', year: 'numeric' });
+            document.getElementById('cert-date').textContent = dateStr;
+
+            // Show Cert Section for Print
+            window.print();
+        }
+
+        // --- ZOOM MODAL ---
+        function openZoom(src) {
+            const modal = document.getElementById('zoom-modal');
+            const img = document.getElementById('zoomed-image');
+            img.src = src;
+            modal.classList.remove('hidden');
+        }
+
+        function closeZoom(e) {
+            if (e.target.id === 'zoom-modal') {
+                document.getElementById('zoom-modal').classList.add('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
